@@ -6,6 +6,7 @@ export const getAuth = jest.fn(() => (
   {
     currentUser: {
       displayName: 'gabriela',
+      userUid: 'uid',
     },
   }));
 

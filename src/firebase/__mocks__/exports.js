@@ -1,5 +1,4 @@
 export const initializeApp = jest.fn();
-export const getAuth = jest.fn();
 export const createUserWithEmailAndPassword = jest.fn();
 export const signInWithEmailAndPassword = jest.fn(() => Promise.resolve({}));
 export const updateProfile = jest.fn();
@@ -40,3 +39,9 @@ export const updateDoc = jest.fn();
 export const deleteDoc = jest.fn();
 export const arrayUnion = jest.fn();
 export const arrayRemove = jest.fn();
+export const getAuth = jest.fn(() => ({
+  currentUser: {
+    displayName: 'gabriela',
+    userUid: 'uid',
+  },
+}));
