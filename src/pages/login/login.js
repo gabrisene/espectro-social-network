@@ -33,7 +33,7 @@ export default () => {
               <button type='submit' class='btn-login'>Iniciar Sessão</button>
               <button type='submit' class='btn-google'><img class='img-google' src='./imagens/google.svg'/> Entrar com Google</button>
             </section>
-            <h6 class='text'> Não possui conta?</h6>
+            <h6 class='text'>Não possui conta?</h6>
             <button type='submit' class='btn-register'>Criar nova conta</button>
         </form> 
       </main>   

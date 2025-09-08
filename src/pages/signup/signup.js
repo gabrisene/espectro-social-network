@@ -12,7 +12,7 @@ export default () => {
       </figure>
 
       <figure class='icon-voltar'>
-      <img class='botao-voltar' src='./imagens/voltar-desktop.png' alt='voltar'>
+      <img class='btn-return' src='./imagens/voltar-desktop.png' alt='voltar'>
       </figure>
 
       <main class='container-main-signup'>
@@ -54,7 +54,7 @@ export default () => {
   const btnGoogle = container.querySelector('.btn-google-signup');
   const inputName = container.querySelector('.input-signup-name');
   const errorMessage = container.querySelector('.error-message');
-  const btnVoltar = container.querySelector('.botao-voltar');
+  const btnReturn = container.querySelector('.btn-return');
 
   form.addEventListener('submit', (e) => {
     e.preventDefault();
@@ -97,7 +97,7 @@ export default () => {
       });
   }
 
-  btnVoltar.addEventListener('click', () => {
+  btnReturn.addEventListener('click', () => {
     redirect('#login');
   });
   
