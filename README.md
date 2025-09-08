@@ -19,7 +19,7 @@
 
   **Status do Projeto:** 100% - Concluída
     
-  A rede social *Espectro* pode ser visitada [aqui](https://devgabrielasene.github.io/espectro/)!
+  A rede social *Espectro* pode ser visitada [aqui](https://gabrisene.github.io/espectro-social-network/)!
 </div>
 
 ## Índice
@@ -106,7 +106,7 @@ Após refinamento do prótotipo de acordo com os feedbacks recebidos, alcançamo
 
 
 ## 7. Considerações técnicas 
-A lógica do projeto foi implementada somente em JavaScript vanilla, HTML e CSS. Neste projeto não foi permitido o uso de bibliotecas e frameworks, com exceção do framework Firebase como banco de dados. Foram utilizadas metodologias de UX, testes de usabilidade e prototipagem de telas através do Figma. 
+A lógica do projeto foi implementada somente em JavaScript vanilla, HTML e CSS e framework Firebase como banco de dados. Foram utilizadas metodologias de UX, testes de usabilidade e prototipagem de telas através do Figma. 
 
 ## 8. Objetivos de Aprendizagem 
 - [x] JavaScript (tipo de dados, arrays, objetos, funções, condicionais, laços, etc)
