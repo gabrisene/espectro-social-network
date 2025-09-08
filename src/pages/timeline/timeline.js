@@ -1,6 +1,4 @@
 import {
-  createDataPost,
-  createDataAnswer,
   newPost,
   readAllPosts,
   readOnePost,
@@ -12,6 +10,10 @@ import {
 
 import { getUser, logout } from '../../firebase/auth.js';
 import { redirect } from '../../routes.js';
+import { getAuth } from '../../firebase/exports.js';
+import { app } from '../../firebase/config.js';
+
+const auth = getAuth(app);
 
 export default () => {
   const container = document.createElement('div');
@@ -67,12 +69,11 @@ export default () => {
       postRef = await readOnePost(postRef.id);
       publishingPost.appendChild(mountPost(postRef));
     } else {
-      alert('Ops, parece que seu post está vazio')
+      alert('Ops, parece que seu post está vazio');
     }
-
   });
 
-  printPosts.then(post => {
+  printPosts.then((post) => {
     post.forEach((post) => {
       allPosts.appendChild(mountPost(post));
     });
@@ -81,6 +82,15 @@ export default () => {
 };
 
 const mountPost = (post) => {
+  let editDeleteButtons = '';
+  if (auth.currentUser.uid === post.userId) {
+    editDeleteButtons = `
+      <div class='container-btns-right'>
+        <button class='btn-edit' id='btn-edit' data-post-id='${post.userId}'><img class='btn-edit-icon' src='./imagens/icon-edit.svg' alt='edit'></button>
+        <button class='btn-delete' id='btn-delete' data-post-id='${post.userId}'><img class='btn-delete-icon' src='./imagens/delete-icon.svg' alt='delete'></button>
+      </div>
+    `;
+  }
   const container = document.createElement('div');
 
   const templatePost = `
@@ -97,46 +107,47 @@ const mountPost = (post) => {
         <button class='btn-like like-count' id='btn-like' value=><img class='btn-like-icon' src='./imagens/icon-like.svg' alt='like'><p>${post.likes.length}</p></button>
         <button class='btn-comment' id='btn-comment'><img class='btn-comment-icon' src='./imagens/icon-coment.svg' alt='comment'></button>
       </div>
-      <div class='container-btns-right'>
-        <button class='btn-edit' id='btn-edit' data-post-id='${post.userId}'><img class='btn-edit-icon' src='./imagens/icon-edit.svg' alt='edit'></button>
-        <button class='btn-delete' id='btn-delete' data-post-id='${post.userId}'><img class='btn-delete-icon' src='./imagens/delete-icon.svg' alt='delete'></button>
-      </div>
+      ${editDeleteButtons}
     </footer>
   </section>
-  `
+  `;
   container.innerHTML = templatePost;
+
   const btnDelete = container.querySelector('#btn-delete');
-  btnDelete.addEventListener('click', (e) => {
-    const confirmation = confirm('Você deseja mesmo excluir este post?');
-    if (confirmation) {
-      deletePost(post.id)
-      container.remove();
-    }
-  });
-  const btnEdit = container.querySelector('#btn-edit');
-  btnEdit.addEventListener('click', (e) => {
-    const textarea = container.querySelector('#post-published');
-    textarea.removeAttribute('disabled');
-    btnEdit.removeEventListener('click', e);
-    btnEdit.addEventListener('click', (e) => {
-      textarea.setAttribute('disabled', 'true');
-      updatePost(post.id, textarea.value);
+  if (btnDelete) {
+    btnDelete.addEventListener('click', () => {
+      const confirmation = confirm('Você deseja mesmo excluir este post?');
+      if (confirmation) {
+        deletePost(post.id);
+        container.remove();
+      }
     });
-  });
+  }
+  const btnEdit = container.querySelector('#btn-edit');
+  if (btnEdit) {
+    btnEdit.addEventListener('click', (e) => {
+      const textarea = container.querySelector('#post-published');
+      textarea.removeAttribute('disabled');
+      btnEdit.removeEventListener('click', e);
+      btnEdit.addEventListener('click', () => {
+        textarea.setAttribute('disabled', 'true');
+        updatePost(post.id, textarea.value);
+      });
+    });
+  }
 
   const btnLike = container.querySelector('#btn-like');
-  btnLike.addEventListener('click', (e) => {
+  btnLike.addEventListener('click', () => {
     const user = getUser();
     if (post.likes.includes(user.uid)) {
-      deslikePost(post.id, user.uid)
+      deslikePost(post.id, user.uid);
       post.likes.splice(post.likes.indexOf(user.uid));
     } else {
-      likePost(post.id, user.uid)
-      post.likes.push(user.uid)
+      likePost(post.id, user.uid);
+      post.likes.push(user.uid);
     }
     btnLike.querySelector('p').innerText = post.likes.length;
   });
 
   return container;
 };
-

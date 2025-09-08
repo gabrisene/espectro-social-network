@@ -50,21 +50,21 @@ export async function readAllPosts() {
   const querySnapshot = await getDocs(collection(firestore, 'posts'));
   const posts = [];
 
-  querySnapshot.forEach(doc => {
+  querySnapshot.forEach((doc) => {
     posts.push({
       id: doc.id,
-      ...doc.data()
+      ...doc.data(),
     });
   });
 
-  return posts
-};
+  return posts;
+}
 
 export const readOnePost = async (idPost) => {
   const post = await getDoc(doc(firestore, 'posts', idPost));
   return {
     id: post.id,
-    ...post.data()
+    ...post.data(),
   };
 };
 
@@ -86,12 +86,11 @@ export function likePost(postId, userUID) {
   updateDoc(docRef, {
     likes: arrayUnion(userUID),
   });
-};
-
+}
 
 export function deslikePost(postId, userUID) {
   const docRef = doc(firestore, 'posts', postId);
   updateDoc(docRef, {
     likes: arrayRemove(userUID),
   });
-};
+}

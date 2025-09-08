@@ -41,7 +41,7 @@ describe('login', () => {
   it('test submit failure loginUser', async () => {
     loginUser.mockRejectedValue({
       code: 'auth/user-not-found',
-    })
+    });
     const container = login();
     const form = container.querySelector('#form');
     const inputEmail = container.querySelector('.input-email');
@@ -65,7 +65,7 @@ describe('login', () => {
     let errorMessages = '';
     errors.forEach((error) => {
       errorMessages += error.innerHTML;
-    })
+    });
     expect(errorMessages).toBe('Você precisa preencher o campo de e-mail!');
   });
 

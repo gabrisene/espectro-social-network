@@ -56,6 +56,17 @@ export default () => {
   const errorMessage = container.querySelector('.error-message');
   const btnReturn = container.querySelector('.btn-return');
 
+  function clearErrors() {
+    container.querySelectorAll('.error-email, .error-password, .error-name')
+      .forEach((p) => {
+        p.innerHTML = '';
+      });
+    container.querySelectorAll('.input-signup-password, .input-signup-name, .input-signup-email')
+      .forEach((p) => {
+        p.classList.remove('input-error');
+      });
+  }
+
   form.addEventListener('submit', (e) => {
     e.preventDefault();
     const validation = validationRegister(
@@ -65,9 +76,6 @@ export default () => {
     );
     if (validation === null) {
       newUser(inputEmail.value, inputPassword.value, inputName.value)
-        // .then(() => updateProfile(auth.currentUser, {
-        //   displayName: inputName.value,
-        // }))
         .then(() => {
           redirect('#timeline');
         })
@@ -86,20 +94,9 @@ export default () => {
     redirect('#timeline');
   });
 
-  function clearErrors() {
-    container.querySelectorAll('.error-email, .error-password, .error-name')
-      .forEach( p => {
-        p.innerHTML = '';
-      });
-    container.querySelectorAll('.input-signup-password, .input-signup-name, .input-signup-email')
-      .forEach( p => {
-        p.classList.remove('input-error');
-      });
-  }
-
   btnReturn.addEventListener('click', () => {
     redirect('#login');
   });
-  
+
   return container;
 };
