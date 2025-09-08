@@ -1,5 +1,6 @@
 import { logout } from '../../firebase/auth.js';
 import { redirect } from '../../routes.js';
+import * as timeline from '../../firebase/timeline.js';
 
 export default () => {
   const container = document.createElement("div");
