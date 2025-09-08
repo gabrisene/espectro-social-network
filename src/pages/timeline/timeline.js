@@ -30,7 +30,7 @@ export default () => {
    <main class='container-main'>
       <section class='container-post'>
         <figure>
-          <img class='img-profile' id='img-profile' />
+          <img class='img-profile' id='img-profile' src='./imagens/logo.png' alt='profile'/>
         </figure>
 
         <textarea class='post-publish' id='post-publish' placeholder='Compartilhe sua vivência...' cols='60' rows='10' style='resize:none'></textarea>
@@ -71,6 +71,8 @@ export default () => {
     } else {
       alert('Ops, parece que seu post está vazio');
     }
+
+    postPublish.value = '';
   });
 
   printPosts.then((post) => {
@@ -97,14 +99,14 @@ const mountPost = (post) => {
   <section class='container-posts-feed' id='posts-${post.userId}'>
     <header class='container-header-feed'>
       <figure class='img-profile-feed'>
-        <img class='img-profile-feed' id='img-profile-feed' />
+        <img class='img-profile-post' id='img-profile-post' src='./imagens/logo.png'/>
       </figure>
       <p class='user-name' id='user-name'>${post.userName}</p>
       <textarea class='post-published' id='post-published' style='resize:none' disabled>${post.message}</textarea>
     </header>
     <footer class='container-footer-feed'>
       <div class='container-btns-left'>
-        <button class='btn-like like-count' id='btn-like' value=><img class='btn-like-icon' src='./imagens/icon-like.svg' alt='like'><p>${post.likes.length}</p></button>
+        <button class='btn-like like-count' id='btn-like' value=><img class='btn-like-icon' src='./imagens/icon-like.svg' alt='like'><p class='number-likes'>${post.likes.length}</p></button>
         <button class='btn-comment' id='btn-comment'><img class='btn-comment-icon' src='./imagens/icon-coment.svg' alt='comment'></button>
       </div>
       ${editDeleteButtons}
@@ -142,12 +144,15 @@ const mountPost = (post) => {
     if (post.likes.includes(user.uid)) {
       deslikePost(post.id, user.uid);
       post.likes.splice(post.likes.indexOf(user.uid));
+      btnLike.innerHTML = `<img class='btn-like-icon' src='./imagens/icon-like.svg' alt='like'><p class='number-likes'>${post.likes.length}</p>`;
     } else {
       likePost(post.id, user.uid);
       post.likes.push(user.uid);
+      btnLike.innerHTML = `<img class='btn-like-icon' src='./imagens/icon-liked.svg' alt='like'><p class='number-likes'>${post.likes.length}</p>`;
     }
     btnLike.querySelector('p').innerText = post.likes.length;
   });
+  
 
   return container;
 };
