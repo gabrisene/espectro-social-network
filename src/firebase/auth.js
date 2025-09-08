@@ -5,28 +5,36 @@ import {
   GoogleAuthProvider,
   signInWithPopup,
   signOut,
+  updateProfile,
 } from './exports.js'; // eslint-disable-line import/no-unresolved
 
 import { app } from './config.js';
 
-const auth = getAuth(app);
 const provider = new GoogleAuthProvider(app);
 
-export async function newUser(email, password) {
-  return createUserWithEmailAndPassword(auth, email, password);
-}
-
 export function loginUser(email, password) {
+  const auth = getAuth(app);
   return signInWithEmailAndPassword(auth, email, password);
 }
 
 export function loginGoogle() {
+  const auth = getAuth(app);
   return signInWithPopup(auth, provider);
 }
 
+export async function newUser(email, password, name) {
+  const auth = getAuth(app);
+  return createUserWithEmailAndPassword(auth, email, password)
+    .then(() => updateProfile(auth.currentUser, {
+      displayName: name,
+    }));
+}
+
 export async function logout() {
+  const auth = getAuth(app);
   return signOut(auth);
 }
 export function getUser() {
-  return auth.currentUser
+  const auth = getAuth(app);
+  return auth.currentUser;
 }

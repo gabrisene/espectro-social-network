@@ -7,12 +7,11 @@ export const getAuth = jest.fn(() => (
     currentUser: {
       displayName: 'gabriela',
     },
-  })
-);
+  }));
+
 export const getUser = jest.fn(() => {
   return {
     displayName: 'gabriella',
     uid: 'testeuid',
-  }
-}
-)
+  };
+});

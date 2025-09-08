@@ -6,25 +6,25 @@ export function validationRegister(inputName, inputEmail, inputPassword) {
     return {
       msg: 'Você precisa preencher o campo de nome!',
       src: 'name',
-    }
+    };
   }
   if (inputEmail === '') {
     return {
       msg: 'Você precisa preencher o campo de e-mail!',
       src: 'email',
-    }
+    };
   }
   if (inputPassword === '') {
     return {
       msg: 'Você precisa criar uma senha!',
       src: 'password',
-    }
+    };
   }
   if (validateEmail === false) {
     return {
       msg: 'Insira um e-mail válido (ex: seunome@email.com)',
       src: 'email',
-    }   
+    };
   }
 
   return null;

@@ -48,6 +48,17 @@ export default () => {
   const buttonGoogle = container.querySelector('.btn-google');
   const errorMessage = container.querySelector('.error-message');
 
+  function clearErrors() {
+    container.querySelectorAll('.error-email, .error-password, .error-name')
+      .forEach((p) => {
+        p.innerHTML = '';
+      });
+    container.querySelectorAll('.input-email, .input-password')
+      .forEach((p) => {
+        p.classList.remove('input-error');
+      });
+  }
+
   form.addEventListener('submit', (event) => {
     event.preventDefault();
     const validation = validationLogin(
@@ -66,7 +77,7 @@ export default () => {
       clearErrors();
       container.querySelector(`.error-${validation.src}`).innerHTML = validation.msg;
       container.querySelector(`.input-${validation.src}`).classList.add('input-error');
-    } 
+    }
   });
 
   buttonRegister.addEventListener('click', (e) => {
@@ -79,17 +90,6 @@ export default () => {
     await loginGoogle();
     redirect('#timeline');
   });
-
-  function clearErrors() {
-    container.querySelectorAll('.error-email, .error-password, .error-name')
-      .forEach( p => {
-        p.innerHTML = '';
-      });
-    container.querySelectorAll('.input-email, .input-password')
-      .forEach( p => {
-        p.classList.remove('input-error');
-      });
-  }
 
   return container;
 };
