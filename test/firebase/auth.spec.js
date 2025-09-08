@@ -1,5 +1,5 @@
 import {
-  loginUser, loginGoogle, newUser, logout,
+  loginUser, loginGoogle, newUser, logout, getUser,
 } from '../../src/firebase/auth.js';
 
 import {
@@ -35,9 +35,13 @@ describe('newUser', () => {
     expect(typeof newUser).toBe('function');
   });
   it('should call another function one time', () => {
-    newUser('email', 'password');
+    newUser('email', 'password', 'name');
     expect(createUserWithEmailAndPassword).toHaveBeenCalledTimes(1);
-    expect(createUserWithEmailAndPassword).toHaveBeenCalledWith(undefined, 'email', 'password');
+    expect(createUserWithEmailAndPassword).toHaveBeenCalledWith({
+      currentUser: {
+        displayName: 'gabriela',
+      },
+    }, email, password,);
   });
 });
 
@@ -49,5 +53,16 @@ describe('logout', () => {
     logout();
     expect(signOut).toHaveBeenCalledTimes(1);
     expect(signOut).toHaveBeenCalledWith(undefined);
+  });
+});
+
+describe('getUser', () => {
+  it('should be a function', () => {
+    expect(typeof getUser).toBe('function');
+  });
+  it('should call another function one time', () => {
+    getUser();
+    expect(auth.currentUser).toHaveBeenCalledTimes(1);
+    expect(auth.currentUser).toHaveBeenCalledWith(undefined);
   });
 });
