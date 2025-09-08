@@ -38,7 +38,7 @@
 Rede social é uma estrutura social composta por pessoas ou organizações, conectadas por um ou vários tipos de relações, que compartilham valores e objetivos comuns. Como exemplo, temos o Instagram, Snapchat, Twitter, Facebook, Twitch, Linkedin, etc. É um fato que as redes sociais hoje, atuam além de uma plataforma de entretenimento, a possibilidade de conectar-se com outras pessoas, histórias, produtos, informações cria uma rede de negócio. Passou a atribuir valor e credibilidade para uma marca, o bom uso de um perfil no instagram, por exemplo. 
 
 <div align='center'>
-<img alt="imagem-redes-sociais" src="src/imagens/redes.png" style="height: 300px;">
+<img alt="imagem-redes-sociais" src="src/imagens/redes.png" style="height: 300px;"><br/><br/>
 </div>
 
 ## 2. Resumo do projeto
@@ -46,7 +46,10 @@ Dado contexto, foi desenvolvido pelo nosso trio, uma Single Page Application (SP
 
 A rede Espectro veio como necessidade de ser desenvolvida, a partir de dores pessoais ao deparar-se com o diagnóstico de alguém próximo e não ter muitos canais informativos como respaldo neste primeiro momento. Em suma, esse rede social tem como meta alcançar familiares e amigos que buscam uma rede de apoio após um recém diagnóstico, mas também tem o intuito de trazer artigos, matérias e informações mais assertivas sobre o tema, partindo do ideal que a informação é um presente e pode impactar na qualidade de vida e no desenvolvimento cognitivo de pessoas no espectro autista, uma vez que essas estarão cercadas por familiares e amigos informados. 
 
-![Espectro](https://i.pinimg.com/564x/d3/67/5c/d3675c0ff9a54ef17118d9895abac79d.jpg)
+
+<div align='center'>
+  <img src='https://i.pinimg.com/564x/d3/67/5c/d3675c0ff9a54ef17118d9895abac79d.jpg'><br/><br/>
+</div>
 
 ## 3. Definição de produto
 A partir de um [formulário](https://docs.google.com/forms/d/e/1FAIpQLScen5FTO1-LLcTDpTtDH3oMjBpC3NO8kGkmqbdb4q_ntTqDuA/viewform) com o intuito de coletar dados de nossos potenciais usuários para entender o processo desde o diagnóstico de alguém próximo no TEA, até a vivência diária, entendemos que a falta de informações e de redes de apoio é uma necessidade para auxiliar familiares e amigos de pessoas que vivem no espectro autista, e também que esse acesso à informação impacta diretamente na qualidade de vida de quem vive no TEA. Dado contexto, definimos alguns pontos principais para a construção dessa rede social: 
@@ -92,9 +95,14 @@ Após teste de usabilidade, implementamos algumas alterações finais no protót
 
 Após refinamento do prótotipo de acordo com os feedbacks recebidos, alcançamos o seguinte resultado:
 
-![prototipos_mobile](src/imagens/prototipos_mobile.png)
-![prototipos_desktop_cadastro_feed](src/imagens/desktop_prototipos1.png)
-![prototipo_desktop_login](src/imagens/desktop_prototipos2.png)
+<div align='center'>
+  <strong>Protótipos Mobile ✨</strong><br/><br/>
+  <img alt="prototipo-mobile" src="src/imagens/prototipos_mobile.png" style="height: 500px;"><br/><br/>
+  <strong>Protótipos Desktop - Login e Cadastro ✨</strong><br/><br/>
+  <img alt="prototipo-mobile" src="src/imagens/desktop_prototipos1.png" style="height: 350px; width:700px"><br/><br/>
+  <strong>Protótipos Desktop - Homepage ✨</strong><br/><br/>
+  <img alt="prototipo-mobile" src="src/imagens/desktop_prototipos2.png" style="height: 500px;"><br/><br/>
+</div>
 
 
 ## 6. Desenvolvedoras 
