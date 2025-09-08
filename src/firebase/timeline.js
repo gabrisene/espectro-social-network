@@ -62,14 +62,13 @@ export async function likePost(idPost, user) {
   return updateDoc(docRef, {
     likes: arrayUnion(user),
   });
-}
+};
 export async function deslikePost(idPost, user) {
   const docRef = doc(firestore, 'posts', idPost);
   return updateDoc(docRef, {
     likes: arrayRemove(user),
   });
-}
-debugger;
+};
 
 export const deletePost = (idPost) => {
   deleteDoc(doc(firestore, 'posts', idPost));
