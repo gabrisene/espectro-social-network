@@ -37,7 +37,9 @@
 ## 1. Prefácio
 Rede social é uma estrutura social composta por pessoas ou organizações, conectadas por um ou vários tipos de relações, que compartilham valores e objetivos comuns. Como exemplo, temos o Instagram, Snapchat, Twitter, Facebook, Twitch, Linkedin, etc. É um fato que as redes sociais hoje, atuam além de uma plataforma de entretenimento, a possibilidade de conectar-se com outras pessoas, histórias, produtos, informações cria uma rede de negócio. Passou a atribuir valor e credibilidade para uma marca, o bom uso de um perfil no instagram, por exemplo. 
 
-<img alt="imagem-redes-sociais" src="src/imagens/redes.png" style="height: 150px;">
+<div align='center'>
+<img alt="imagem-redes-sociais" src="src/imagens/redes.png" style="height: 300px;">
+</div>
 
 ## 2. Resumo do projeto
 Dado contexto, foi desenvolvido pelo nosso trio, uma Single Page Application (SPA) voltada para pessoas que vivem no Transtorno do Espectro Autista (TEA), a fim de impactar a vida dessas pessoas positivamente atráves de informação e rede apoio para pais, familiares e amigos. Essa rede social tem como objetivo criar um espaço de acolhimento, trocas, relatos entre pessoas que, de alguma forma, tem vivência com o TEA. Na rede Espectro, apostamos em um layout limpo, simples e intuitivo. Nossos usuários vão deparar-se com a tela de login e a opção de criar uma conta, assim que acessar a página. Após criar uma conta, nossos usuários terão um perfil com acesso ao feed, onde poderão criar postagens, curtir, descurtir e comentar postagens de outros usuários. Além de ter uma segunda aba de "Blog", que é destinada a artigos, matérias e outros documentos de cunho informativo à respeito do autismo.
