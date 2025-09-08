@@ -30,7 +30,7 @@ export default () => {
    <main class='container-main'>
       <section class='container-post'>
         <figure>
-          <img class='img-profile' id='img-profile' />
+          <img class='img-profile' id='img-profile' src='./imagens/logo.png' alt='profile'/>
         </figure>
 
         <textarea class='post-publish' id='post-publish' placeholder='Compartilhe sua vivência...' cols='60' rows='10' style='resize:none'></textarea>
@@ -71,6 +71,8 @@ export default () => {
     } else {
       alert('Ops, parece que seu post está vazio');
     }
+
+    postPublish.value = '';
   });
 
   printPosts.then((post) => {
@@ -97,32 +99,58 @@ const mountPost = (post) => {
   <section class='container-posts-feed' id='posts-${post.userId}'>
     <header class='container-header-feed'>
       <figure class='img-profile-feed'>
-        <img class='img-profile-feed' id='img-profile-feed' />
+        <img class='img-profile-post' id='img-profile-post' src='./imagens/logo.png'/>
       </figure>
       <p class='user-name' id='user-name'>${post.userName}</p>
       <textarea class='post-published' id='post-published' style='resize:none' disabled>${post.message}</textarea>
     </header>
     <footer class='container-footer-feed'>
       <div class='container-btns-left'>
-        <button class='btn-like like-count' id='btn-like' value=><img class='btn-like-icon' src='./imagens/icon-like.svg' alt='like'><p>${post.likes.length}</p></button>
+        <button class='btn-like like-count' id='btn-like' value=><img class='btn-like-icon' src='./imagens/icon-like.svg' alt='like'><p class='number-likes'>${post.likes.length}</p></button>
         <button class='btn-comment' id='btn-comment'><img class='btn-comment-icon' src='./imagens/icon-coment.svg' alt='comment'></button>
       </div>
       ${editDeleteButtons}
     </footer>
+
+    <div class='modal-delete' id='modal-delete'>
+      <div class='modal-delete-content'>
+        <p class='modal-delete-text'>Tem certeza que deseja excluir?</p>
+        <div class='modal-delete-btns'>
+          <button class='btn-modal-delete' id='btn-modal-delete'>Excluir</button>
+          <button class='btn-modal-cancel' id='btn-modal-cancel'>Cancelar</button>
+        </div>
+      </div>
+    </div>
+
   </section>
   `;
   container.innerHTML = templatePost;
 
   const btnDelete = container.querySelector('#btn-delete');
-  if (btnDelete) {
+  //para disparar o modal
+  const modalDelete = container.querySelector('#modal-delete');
+  if(btnDelete) {
     btnDelete.addEventListener('click', () => {
-      const confirmation = confirm('Você deseja mesmo excluir este post?');
-      if (confirmation) {
-        deletePost(post.id);
-        container.remove();
-      }
+      modalDelete.style.display = 'flex';
     });
   }
+  //para fechar o modal
+  const btnModalCancel = container.querySelector('#btn-modal-cancel');
+  if(btnModalCancel) {
+    btnModalCancel.addEventListener('click', () => {
+      modalDelete.style.display = 'none';
+    });
+  }
+  //para deletar o post
+  const btnModalDelete = container.querySelector('#btn-modal-delete');
+  if(btnModalDelete) {
+    btnModalDelete.addEventListener('click', () => {
+      deletePost(post.id);
+      modalDelete.style.display = 'none';
+      container.remove();
+    });
+  }
+
   const btnEdit = container.querySelector('#btn-edit');
   if (btnEdit) {
     btnEdit.addEventListener('click', (e) => {
@@ -142,12 +170,15 @@ const mountPost = (post) => {
     if (post.likes.includes(user.uid)) {
       deslikePost(post.id, user.uid);
       post.likes.splice(post.likes.indexOf(user.uid));
+      btnLike.innerHTML = `<img class='btn-like-icon' src='./imagens/icon-like.svg' alt='like'><p class='number-likes'>${post.likes.length}</p>`;
     } else {
       likePost(post.id, user.uid);
       post.likes.push(user.uid);
+      btnLike.innerHTML = `<img class='btn-like-icon' src='./imagens/icon-liked.svg' alt='liked'><p class='number-likes'>${post.likes.length}</p>`;
     }
     btnLike.querySelector('p').innerText = post.likes.length;
   });
+  
 
   return container;
 };
