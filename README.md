@@ -17,7 +17,7 @@
 
   <br>
 
-  **Status do Projeto:** 60% - Em progresso
+  **Status do Projeto:** 100% - Concluída
     
   A rede social *Espectro* pode ser visitada [aqui](https://devgabrielasene.github.io/espectro/)!
 </div>
