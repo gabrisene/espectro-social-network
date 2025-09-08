@@ -15,7 +15,9 @@ describe('loginUser', () => {
   it('should call another function one time', () => {
     loginUser('email', 'password');
     expect(signInWithEmailAndPassword).toHaveBeenCalledTimes(1);
-    expect(signInWithEmailAndPassword).toHaveBeenCalledWith(undefined, 'email', 'password');
+    expect(signInWithEmailAndPassword).toHaveBeenCalledWith({
+      "currentUser": { "displayName": "gabriela", "userUid": "uid" }
+    }, 'email', 'password');
   });
 });
 
@@ -26,7 +28,7 @@ describe('loginGoogle', () => {
   it('should call another function one time', () => {
     loginGoogle();
     expect(signInWithPopup).toHaveBeenCalledTimes(1);
-    expect(signInWithPopup).toHaveBeenCalledWith(undefined, {});
+    expect(signInWithPopup).toHaveBeenCalledWith({ "currentUser": { "displayName": "gabriela", "userUid": "uid" } }, {});
   });
 });
 
@@ -37,11 +39,7 @@ describe('newUser', () => {
   it('should call another function one time', () => {
     newUser('email', 'password', 'name');
     expect(createUserWithEmailAndPassword).toHaveBeenCalledTimes(1);
-    expect(createUserWithEmailAndPassword).toHaveBeenCalledWith({
-      currentUser: {
-        displayName: 'gabriela',
-      },
-    }, email, password,);
+    expect(createUserWithEmailAndPassword).toHaveBeenCalledWith({ currentUser: { displayName: 'gabriela', 'userUid': 'uid' } }, 'email', 'password', 'name')
   });
 });
 
@@ -52,7 +50,7 @@ describe('logout', () => {
   it('should call another function one time', () => {
     logout();
     expect(signOut).toHaveBeenCalledTimes(1);
-    expect(signOut).toHaveBeenCalledWith(undefined);
+    expect(signOut).toHaveBeenCalledWith({ "currentUser": { "displayName": "gabriela", "userUid": "uid" } });
   });
 });
 
@@ -61,8 +59,7 @@ describe('getUser', () => {
     expect(typeof getUser).toBe('function');
   });
   it('should call another function one time', () => {
-    getUser();
-    expect(auth.currentUser).toHaveBeenCalledTimes(1);
-    expect(auth.currentUser).toHaveBeenCalledWith(undefined);
+    const user = getUser();
+    expect(user).toStrictEqual({ 'displayName': 'gabriela', 'userUid': 'uid' });
   });
 });
