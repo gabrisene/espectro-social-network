@@ -9,8 +9,8 @@ import {
 
 import { app } from './config.js';
 
-export const auth = getAuth(app);
-export const provider = new GoogleAuthProvider(app);
+const auth = getAuth(app);
+const provider = new GoogleAuthProvider(app);
 
 export async function newUser(email, password) {
   return createUserWithEmailAndPassword(auth, email, password);
@@ -27,6 +27,6 @@ export function loginGoogle() {
 export async function logout() {
   return signOut(auth);
 }
-export function getUser(){
+export function getUser() {
   return auth.currentUser
 }

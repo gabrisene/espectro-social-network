@@ -9,8 +9,31 @@ export const signInWithPopup = jest.fn();
 export const getFirestore = jest.fn();
 export const collection = jest.fn();
 export const addDoc = jest.fn();
-export const getDocs = jest.fn();
-export const getDoc = jest.fn();
+export const getDocs = jest.fn(() => {
+    return [
+        {
+            id: 'testeid',
+            data: () => {
+                return {
+                    message: 'messageTest',
+                    likes: []
+                }
+            }
+        }
+    ]
+});
+export const getDoc = jest.fn(() => {
+    return {
+        id: 'testeid',
+        data: () => {
+            return {
+                message: 'messageTest',
+                likes: []
+            }
+        }
+    }
+
+});
 export const readOnePost = jest.fn();
 export const doc = jest.fn();
 export const updatePost = jest.fn();
@@ -18,3 +41,4 @@ export const updateDoc = jest.fn();
 export const deleteDoc = jest.fn();
 export const arrayUnion = jest.fn();
 export const arrayRemove = jest.fn();
+

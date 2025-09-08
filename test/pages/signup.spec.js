@@ -21,8 +21,8 @@ describe('signup', () => {
     expect(typeof signup).toBe('function');
   });
 
-  it('should return a div with a valid innerHTML', () => {
-    const container = signup();
+  it('should return a div with a valid innerHTML', async () => {
+    const container = await signup();
     expect(container).toHaveProperty('innerHTML');
     expect(container.innerHTML.length).toBeGreaterThan(0);
     expect(typeof container.innerHTML).toBe('string');

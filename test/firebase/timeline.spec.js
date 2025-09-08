@@ -26,6 +26,7 @@ import {
 } from '../../src/firebase/exports.js';
 
 jest.mock('../../src/firebase/exports.js');
+jest.mock('../../src/firebase/auth.js');
 
 jest.useFakeTimers('modern').setSystemTime(new Date(2022, 10, 23));
 afterEach(() => {
@@ -37,9 +38,8 @@ describe('createDataPost', () => {
     expect(typeof createDataPost).toBe('function');
   });
   it('should have receive an object with the right values', () => {
-    const dataPost = createDataPost('testMessageContent', 'userTest');
+    const dataPost = createDataPost('testMessageContent');
     expect(dataPost.message).toBe('testMessageContent');
-    expect(dataPost.user).toBe('userTest');
     expect(dataPost.image).toBe('');
     expect(dataPost.answers).toStrictEqual([]);
     expect(dataPost.likes).toStrictEqual([]);
@@ -51,10 +51,9 @@ describe('createDataAnswer', () => {
     expect(typeof createDataPost).toBe('function');
   });
   it('should have receive an object with the right values', () => {
-    const dataAnswer = createDataAnswer('testMessageContent', 'userTest');
+    const dataAnswer = createDataAnswer('testMessageContent');
     expect(dataAnswer.message).toBe('testMessageContent');
-    expect(dataAnswer.user).toBe('userTest');
-    expect(dataAnswer.likes).toBe(0);
+    expect(dataAnswer.likes).toStrictEqual([]);
   });
 });
 

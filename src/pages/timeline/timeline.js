@@ -1,17 +1,29 @@
-import { logout } from '../../firebase/auth.js';
+import {
+  createDataPost,
+  createDataAnswer,
+  newPost,
+  readAllPosts,
+  readOnePost,
+  updatePost,
+  deletePost,
+  likePost,
+  deslikePost,
+} from '../../firebase/timeline.js';
+
+import { getUser, logout } from '../../firebase/auth.js';
 import { redirect } from '../../routes.js';
-import * as timeline from '../../firebase/timeline.js';
 
 export default () => {
-  const container = document.createElement("div");
+  const container = document.createElement('div');
+  const printPosts = readAllPosts();
 
   const template = `
-	 <header class='container-header'>
+   <header class='container-header'> 
       <figure>
-	      <img class='logo-timeline' src='./imagens/logo-mobile.png' alt='logo'>
-	    </figure>
-	    <button id='logout-btn' class='logout-btn'><img class='logout-icon' src='./imagens/logout.svg' alt='signout-icon'></button>
-	 </header>
+        <img class='logo-timeline' src='./imagens/logo-mobile.png' alt='logo'>
+      </figure>
+      <button id='logout-btn' class='logout-btn'><img class='logout-icon' src='./imagens/logout.svg' alt='signout-icon'></button>
+   </header>
 
    <main class='container-main'>
       <section class='container-post'>
@@ -29,7 +41,9 @@ export default () => {
         <button class='publish-btn' id='publish-btn'><img class='publish-post-icon' src='./imagens/btn-post.svg' alt='add-image'></button>
       </section>
       <div class='linha-dois'></div>
-    </main>
+      <div class='allposts' id='publishingPost'></div>
+      <div class='allPosts' id='allPosts'></div>
+    </main>      
   `;
 
   container.innerHTML = template;
@@ -41,5 +55,88 @@ export default () => {
     redirect('#login');
   });
 
+  const btnPublish = container.querySelector('#publish-btn');
+  const postPublish = container.querySelector('#post-publish');
+  const allPosts = container.querySelector('#allPosts');
+
+  btnPublish.addEventListener('click', async () => {
+    const publishingPost = container.querySelector('#publishingPost');
+    const messageContent = postPublish.value;
+    if (messageContent.length > 0) {
+      let postRef = await newPost(messageContent);
+      postRef = await readOnePost(postRef.id);
+      publishingPost.appendChild(mountPost(postRef));
+    } else {
+      alert('Ops, parece que seu post está vazio')
+    }
+
+  });
+
+  printPosts.then(post => {
+    post.forEach((post) => {
+      allPosts.appendChild(mountPost(post));
+    });
+  });
   return container;
 };
+
+const mountPost = (post) => {
+  const container = document.createElement('div');
+
+  const templatePost = `
+  <section class='container-posts-feed' id='posts-${post.userId}'>
+    <header class='container-header-feed'>
+      <figure class='img-profile-feed'>
+        <img class='img-profile-feed' id='img-profile-feed' />
+      </figure>
+      <p class='user-name' id='user-name'>${post.userName}</p>
+      <textarea class='post-published' id='post-published' style='resize:none' disabled>${post.message}</textarea>
+    </header>
+    <footer class='container-footer-feed'>
+      <div class='container-btns-left'>
+        <button class='btn-like like-count' id='btn-like' value=><img class='btn-like-icon' src='./imagens/icon-like.svg' alt='like'><p>${post.likes.length}</p></button>
+        <button class='btn-comment' id='btn-comment'><img class='btn-comment-icon' src='./imagens/icon-coment.svg' alt='comment'></button>
+      </div>
+      <div class='container-btns-right'>
+        <button class='btn-edit' id='btn-edit' data-post-id='${post.userId}'><img class='btn-edit-icon' src='./imagens/icon-edit.svg' alt='edit'></button>
+        <button class='btn-delete' id='btn-delete' data-post-id='${post.userId}'><img class='btn-delete-icon' src='./imagens/delete-icon.svg' alt='delete'></button>
+      </div>
+    </footer>
+  </section>
+  `
+  container.innerHTML = templatePost;
+  const btnDelete = container.querySelector('#btn-delete');
+  btnDelete.addEventListener('click', (e) => {
+    const confirmation = confirm('Você deseja mesmo excluir este post?');
+    if (confirmation) {
+      deletePost(post.id)
+      container.remove();
+    }
+  });
+  const btnEdit = container.querySelector('#btn-edit');
+  btnEdit.addEventListener('click', (e) => {
+    const textarea = container.querySelector('#post-published');
+    textarea.removeAttribute('disabled');
+    btnEdit.removeEventListener('click', e);
+    btnEdit.addEventListener('click', (e) => {
+      textarea.setAttribute('disabled', 'true');
+      updatePost(post.id, textarea.value);
+    });
+  });
+
+  const btnLike = container.querySelector('#btn-like');
+  btnLike.addEventListener('click', (e) => {
+    const user = getUser();
+    if (post.likes.includes(user.uid)) {
+      deslikePost(post.id, user.uid)
+      post.likes.splice(post.likes.indexOf(user.uid));
+    } else {
+      likePost(post.id, user.uid)
+      post.likes.push(user.uid)
+    }
+    btnLike.querySelector('p').innerText = post.likes.length;
+  });
+
+  return container;
+};
+

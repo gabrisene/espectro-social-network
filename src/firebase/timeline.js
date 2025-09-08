@@ -7,16 +7,19 @@ import {
   getDoc,
   doc,
   updateDoc,
-  arrayUnion, 
-  arrayRemove,
   deleteDoc,
+  arrayRemove,
+  arrayUnion,
 } from './exports.js';
 
-export const createDataPost = (messageContent, user) => {
+import { getUser } from './auth.js';
+
+export const createDataPost = (messageContent) => {
   const date = new Date();
   return {
     message: messageContent,
-    user: user,
+    userId: getUser().uid,
+    userName: getUser().displayName,
     image: '',
     answers: [],
     likes: [],
@@ -24,28 +27,45 @@ export const createDataPost = (messageContent, user) => {
     editDate: date.toJSON(),
   };
 };
-export const createDataAnswer = (messageContent, user) => {
+
+export const createDataAnswer = (messageContent) => {
   const date = new Date();
   return {
     message: messageContent,
-    user: user,
-    likes: 0,
+    userId: getUser().uid,
+    userName: getUser().displayName,
+    likes: [],
     publishDate: date.toJSON(),
     editDate: date.toJSON(),
   };
 };
-export const newPost = (messageContent, user) => {
-  const dataPost = createDataPost(messageContent, user);
+
+export const newPost = async (messageContent) => {
+  const dataPost = createDataPost(messageContent);
   const docRef = addDoc(collection(firestore, 'posts'), dataPost);
   return docRef;
 };
 
-export const readAllPosts = () => {
-  return getDocs(collection(firestore, 'posts'));
+export async function readAllPosts() {
+  const querySnapshot = await getDocs(collection(firestore, 'posts'));
+  const posts = [];
+
+  querySnapshot.forEach(doc => {
+    posts.push({
+      id: doc.id,
+      ...doc.data()
+    });
+  });
+
+  return posts
 };
 
-export const readOnePost = (idPost) => {
-  return getDoc(doc(firestore, 'posts', idPost));
+export const readOnePost = async (idPost) => {
+  const post = await getDoc(doc(firestore, 'posts', idPost));
+  return {
+    id: post.id,
+    ...post.data()
+  };
 };
 
 export const updatePost = (idPost, messageContent) => {
@@ -57,24 +77,21 @@ export const updatePost = (idPost, messageContent) => {
   });
 };
 
-export async function likePost(idPost, user) {
-  const docRef = doc(firestore, 'posts', idPost);
-  return updateDoc(docRef, {
-    likes: arrayUnion(user),
-  });
-};
-export async function deslikePost(idPost, user) {
-  const docRef = doc(firestore, 'posts', idPost);
-  return updateDoc(docRef, {
-    likes: arrayRemove(user),
-  });
-};
-
 export const deletePost = (idPost) => {
   deleteDoc(doc(firestore, 'posts', idPost));
 };
 
+export function likePost(postId, userUID) {
+  const docRef = doc(firestore, 'posts', postId);
+  updateDoc(docRef, {
+    likes: arrayUnion(userUID),
+  });
+};
 
 
-
-
+export function deslikePost(postId, userUID) {
+  const docRef = doc(firestore, 'posts', postId);
+  updateDoc(docRef, {
+    likes: arrayRemove(userUID),
+  });
+};
