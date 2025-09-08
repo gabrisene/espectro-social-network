@@ -2,19 +2,17 @@ import { logout } from '../../firebase/auth.js';
 import { redirect } from '../../routes.js';
 
 export default () => {
-  const container = document.createElement('div');
+  const container = document.createElement("div");
 
   const template = `
-	<figure>
-	  <img class='logo-timeline' src='./imagens/logo-mobile.png' alt='logo'>
-	</figure>
-	 <header>
+	 <header class='container-header'>
+      <figure>
+	      <img class='logo-timeline' src='./imagens/logo-mobile.png' alt='logo'>
+	    </figure>
 	    <button id='logout-btn' class='logout-btn'><img class='logout-icon' src='./imagens/logout.svg' alt='signout-icon'></button>
-
-      <h2 class='display-name'>Olá, </h2>
 	 </header>
-    <main id='create-post' class='container-main'>
- 
+
+   <main class='container-main'>
       <section class='container-post'>
         <figure>
           <img class='img-profile' id='img-profile' />
@@ -30,9 +28,7 @@ export default () => {
         <button class='publish-btn' id='publish-btn'><img class='publish-post-icon' src='./imagens/btn-post.svg' alt='add-image'></button>
       </section>
       <div class='linha-dois'></div>
-
-    	<section id='post-timeline'></section>
-	</main>
+    </main>
   `;
 
   container.innerHTML = template;
@@ -43,6 +39,6 @@ export default () => {
     await logout();
     redirect('#login');
   });
-  
+
   return container;
 };
