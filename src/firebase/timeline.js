@@ -7,6 +7,8 @@ import {
   getDoc,
   doc,
   updateDoc,
+  arrayUnion, 
+  arrayRemove,
   deleteDoc,
 } from './exports.js';
 
@@ -17,7 +19,7 @@ export const createDataPost = (messageContent, user) => {
     user: user,
     image: '',
     answers: [],
-    likes: 0,
+    likes: [],
     publishDate: date.toJSON(),
     editDate: date.toJSON(),
   };
@@ -54,6 +56,26 @@ export const updatePost = (idPost, messageContent) => {
     editDate: date.toJSON(),
   });
 };
+
+export async function likePost(idPost, user) {
+  const docRef = doc(firestore, 'posts', idPost);
+  return updateDoc(docRef, {
+    likes: arrayUnion(user),
+  });
+}
+export async function deslikePost(idPost, user) {
+  const docRef = doc(firestore, 'posts', idPost);
+  return updateDoc(docRef, {
+    likes: arrayRemove(user),
+  });
+}
+debugger;
+
 export const deletePost = (idPost) => {
   deleteDoc(doc(firestore, 'posts', idPost));
 };
+
+
+
+
+

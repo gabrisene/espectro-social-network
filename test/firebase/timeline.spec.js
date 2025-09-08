@@ -9,6 +9,8 @@ import {
   readOnePost,
   updatePost,
   deletePost,
+  likePost,
+  deslikePost,
 } from '../../src/firebase/timeline.js';
 
 import {
@@ -19,6 +21,8 @@ import {
   doc,
   updateDoc,
   deleteDoc,
+  arrayUnion,
+  arrayRemove,
 } from '../../src/firebase/exports.js';
 
 jest.mock('../../src/firebase/exports.js');
@@ -38,7 +42,7 @@ describe('createDataPost', () => {
     expect(dataPost.user).toBe('userTest');
     expect(dataPost.image).toBe('');
     expect(dataPost.answers).toStrictEqual([]);
-    expect(dataPost.likes).toBe(0);
+    expect(dataPost.likes).toStrictEqual([]);
   });
 });
 
@@ -106,11 +110,39 @@ describe('updatePost', () => {
 });
 
 describe('deletePost', () => {
-  expect(typeof deletePost).toBe('function');
+  it('should be a function', () => {
+    expect(typeof deletePost).toBe('function');
+  });
+  it('should call another function with the right params', () => {
+    deletePost('testIdPost');
+    expect(deleteDoc).toHaveBeenCalledTimes(1);
+    expect(doc).toHaveBeenCalledTimes(1);
+    expect(doc).toHaveBeenCalledWith(undefined, 'posts', 'testIdPost');
+  });
 });
-it('should call another function with the right params', () => {
-  deletePost('testIdPost');
-  expect(deleteDoc).toHaveBeenCalledTimes(1);
-  expect(doc).toHaveBeenCalledTimes(1);
-  expect(doc).toHaveBeenCalledWith(undefined, 'posts', 'testIdPost');
+
+describe('likePost', () => {
+  it('should be a function', () => {
+    expect(typeof likePost).toBe('function');
+  });
+  it('should call another functions with the right params', () => {
+    likePost('testIdPost', 'testUserName');
+    expect(arrayUnion).toHaveBeenCalledTimes(1);
+    expect(arrayUnion).toHaveBeenCalledWith('testUserName');
+    expect(updateDoc).toHaveBeenCalledTimes(1);
+    expect(updateDoc).toHaveBeenCalledWith(undefined, { 'likes': undefined });
+  });
+});
+
+describe('deslikePost', () => {
+  it('should be a function', () => {
+    expect(typeof deslikePost).toBe('function');
+  });
+  it('should call another function with the right params', () => {
+    deslikePost('testIdPost', 'testUserName');
+    expect(arrayRemove).toHaveBeenCalledTimes(1);
+    expect(arrayRemove).toHaveBeenCalledWith('testUserName');
+    expect(updateDoc).toHaveBeenCalledTimes(1);
+    expect(updateDoc).toHaveBeenCalledWith(undefined, { 'likes': undefined });
+  });
 });
