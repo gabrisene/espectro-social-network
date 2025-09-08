@@ -105,9 +105,6 @@ Após refinamento do prótotipo de acordo com os feedbacks recebidos, alcançamo
 </div>
 
 
-## 6. Desenvolvedoras 
-Social Network foi o terceiro projeto de Desenvolvimento Web da Laboratória e foi desenvolvido pelo trio: [Bruna Lima](https://github.com/brunalimxst), [Gabriela Sene](https://github.com/devgabrielasene) e [Gabriella Viroli](https://github.com/GabriellaViroli)
-
 ## 7. Considerações técnicas 
 A lógica do projeto foi implementada somente em JavaScript vanilla, HTML e CSS. Neste projeto não foi permitido o uso de bibliotecas e frameworks, com exceção do framework Firebase como banco de dados. Foram utilizadas metodologias de UX, testes de usabilidade e prototipagem de telas através do Figma. 
 
