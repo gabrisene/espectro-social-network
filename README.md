@@ -19,7 +19,7 @@
 
   **Status do Projeto:** 60% - Em progresso
     
-  A rede social *Espectro* pode ser visitada [aqui](https://brunalimxst.github.io/espectro-social-network/)!
+  A rede social *Espectro* pode ser visitada [aqui](https://devgabrielasene.github.io/espectro/)!
 </div>
 
 ## Índice
