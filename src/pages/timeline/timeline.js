@@ -111,20 +111,46 @@ const mountPost = (post) => {
       </div>
       ${editDeleteButtons}
     </footer>
+
+    <div class='modal-delete' id='modal-delete'>
+      <div class='modal-delete-content'>
+        <p class='modal-delete-text'>Tem certeza que deseja excluir?</p>
+        <div class='modal-delete-btns'>
+          <button class='btn-modal-delete' id='btn-modal-delete'>Excluir</button>
+          <button class='btn-modal-cancel' id='btn-modal-cancel'>Cancelar</button>
+        </div>
+      </div>
+    </div>
+
   </section>
   `;
   container.innerHTML = templatePost;
 
   const btnDelete = container.querySelector('#btn-delete');
-  if (btnDelete) {
+  //para disparar o modal
+  const modalDelete = container.querySelector('#modal-delete');
+  if(btnDelete) {
     btnDelete.addEventListener('click', () => {
-      const confirmation = confirm('Você deseja mesmo excluir este post?');
-      if (confirmation) {
-        deletePost(post.id);
-        container.remove();
-      }
+      modalDelete.style.display = 'flex';
     });
   }
+  //para fechar o modal
+  const btnModalCancel = container.querySelector('#btn-modal-cancel');
+  if(btnModalCancel) {
+    btnModalCancel.addEventListener('click', () => {
+      modalDelete.style.display = 'none';
+    });
+  }
+  //para deletar o post
+  const btnModalDelete = container.querySelector('#btn-modal-delete');
+  if(btnModalDelete) {
+    btnModalDelete.addEventListener('click', () => {
+      deletePost(post.id);
+      modalDelete.style.display = 'none';
+      container.remove();
+    });
+  }
+
   const btnEdit = container.querySelector('#btn-edit');
   if (btnEdit) {
     btnEdit.addEventListener('click', (e) => {
@@ -148,7 +174,7 @@ const mountPost = (post) => {
     } else {
       likePost(post.id, user.uid);
       post.likes.push(user.uid);
-      btnLike.innerHTML = `<img class='btn-like-icon' src='./imagens/icon-liked.svg' alt='like'><p class='number-likes'>${post.likes.length}</p>`;
+      btnLike.innerHTML = `<img class='btn-like-icon' src='./imagens/icon-liked.svg' alt='liked'><p class='number-likes'>${post.likes.length}</p>`;
     }
     btnLike.querySelector('p').innerText = post.likes.length;
   });
