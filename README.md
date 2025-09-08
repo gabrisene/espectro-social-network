@@ -112,18 +112,18 @@ Social Network foi o terceiro projeto de Desenvolvimento Web da Laboratória e f
 A lógica do projeto foi implementada somente em JavaScript vanilla, HTML e CSS. Neste projeto não foi permitido o uso de bibliotecas e frameworks, com exceção do framework Firebase como banco de dados. Foram utilizadas metodologias de UX, testes de usabilidade e prototipagem de telas através do Figma. 
 
 ## 8. Objetivos de Aprendizagem 
- - JavaScript (tipo de dados, arrays, objetos, funções, condicionais, laços, etc)
- - HTML (HTML semântico);
- - Mobile First; 
- - CSS (flexbox, grid);
- - Manipulação dinâmica de eventos de DOM;
- - Routing (History API, evento hashchange, window.location);
- - Jest (mocks, espiões, testes unitários e assíncronos);
- - Módulos de ECMAScript (ES modules);
- - Uso de linter (ESLINT);
- - Callbacks e promisses;
- - Controle de Versões (Git e GitHub);
- - User-centricity;
- - Firebase (Firebase Auth, Firestore, etc);
- - CRUD;
+- [x] JavaScript (tipo de dados, arrays, objetos, funções, condicionais, laços, etc)
+- [x] HTML (HTML semântico);
+- [x] Mobile First; 
+- [x] CSS (flexbox, grid);
+- [x] Manipulação dinâmica de eventos de DOM;
+- [x] Routing (History API, evento hashchange, window.location);
+- [x] Jest (mocks, espiões, testes unitários e assíncronos);
+- [x] Módulos de ECMAScript (ES modules);
+- [x] Uso de linter (ESLINT);
+- [x] Callbacks e promisses;
+- [x] Controle de Versões (Git e GitHub);
+- [x] User-centricity;
+- [x] Firebase (Firebase Auth, Firestore, etc);
+- [x] CRUD;
 
